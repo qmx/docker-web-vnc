@@ -16,8 +16,14 @@ buildx-install:
 buildx-prepare: buildx-install
 	docker buildx create --use
 
-buildx:
+buildx: buildx-prepare
 	docker buildx build --platform=linux/arm/v7,linux/amd64 -t ${IMAGE}:${VERSION} .
+
+buildx-push: buildx-prepare
+	docker buildx build --platform=linux/arm/v7,linux/amd64 --push -t ${IMAGE}:${VERSION} .
+
+buildx-push-tag: buildx-prepare
+	docker buildx build --platform=linux/arm/v7,linux/amd64 --push -t ${IMAGE}:latest .
 
 build:
 	docker build ${DOCKER_BUILD_OPTS} -t ${IMAGE}:${VERSION} .
