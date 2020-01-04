@@ -7,4 +7,5 @@ RUN apt-get update -qy && apt-get install -qy \
 	&& rm -rf /var/lib/apt/lists/*
 ADD ./entrypoint.sh /entrypoint.sh
 ADD ./start-firefox.sh /usr/local/bin/start-firefox.sh
+VOLUME ["/data"]
 ENTRYPOINT ["/entrypoint.sh"]
